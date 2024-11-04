@@ -671,7 +671,11 @@ spec:
       serviceAccountName: rook-ceph-system
       containers:
         - name: rook-ceph-operator
+<<<<<<< HEAD
           image: docker.io/rook/ceph:v1.16.0-beta.0
+=======
+          image: docker.io/rook/ceph:master
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
           args: ["ceph", "operator"]
           securityContext:
             runAsNonRoot: true

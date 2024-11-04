@@ -12,7 +12,11 @@ runs:
     - name: Setup Minikube
       shell: bash --noprofile --norc -eo pipefail -x {0}
       run: |
+<<<<<<< HEAD
         tests/scripts/github-action-helper.sh install_minikube_with_none_driver v1.32.0
+=======
+        tests/scripts/github-action-helper.sh install_minikube_with_none_driver v1.31.0
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
 
     - name: install deps
       shell: bash --noprofile --norc -eo pipefail -x {0}

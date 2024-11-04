@@ -692,7 +692,11 @@ function test_csi_nfs_workload {
 }
 
 function install_minikube_with_none_driver() {
+<<<<<<< HEAD
   CRICTL_VERSION="v1.32.0"
+=======
+  CRICTL_VERSION="v1.31.1"
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
   MINIKUBE_VERSION="v1.34.0"
 
   sudo apt update
