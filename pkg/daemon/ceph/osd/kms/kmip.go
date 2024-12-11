@@ -24,6 +24,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
+	"math"
 	"strconv"
 	"time"
 
@@ -97,7 +98,9 @@ func InitKMIP(config map[string]string) (*kmipKMS, error) {
 	kms.readTimeout = kmipDefaultReadTimeout
 	timeout, err := strconv.Atoi(GetParam(config, kmipReadTimeOut))
 	if err == nil {
-		kms.readTimeout = uint8(timeout)
+		if timeout < math.MaxUint8 {
+			kms.readTimeout = uint8(timeout) // nolint:gosec // G115 : we know it is not too big.
+		}
 	}
 
 	// optional
