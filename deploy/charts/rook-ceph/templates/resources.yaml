@@ -11869,6 +11869,26 @@ spec:
                           type: object
                       type: object
                       x-kubernetes-preserve-unknown-fields: true
+                    rgwCommandFlags:
+                      additionalProperties:
+                        type: string
+                      description: |-
+                        RgwCommandFlags sets Ceph RGW config values for the gateway clients that serve this object
+                        store. Values are modified at RGW startup, resulting in RGW pod restarts.
+                        This is an advanced feature that must be used with caution. Misconfigurations can result in
+                        object store breakage.
+                      nullable: true
+                      type: object
+                    rgwConfig:
+                      additionalProperties:
+                        type: string
+                      description: |-
+                        RgwConfig sets Ceph RGW config values for the gateway clients that serve this object store.
+                        Values are modified at runtime without RGW restart.
+                        This is an advanced feature that must be used with caution. Misconfigurations can result in
+                        object store breakage.
+                      nullable: true
+                      type: object
                     securePort:
                       description: The port the rgw service will be listening on (https)
                       format: int32

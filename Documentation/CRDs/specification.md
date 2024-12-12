@@ -7172,6 +7172,36 @@ Example: for an additional mount at subPath <code>ldap</code>, mounted from a se
 <code>bindpass.secret</code>, the file would reside at <code>/var/rgw/ldap/bindpass.secret</code>.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>rgwConfig</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>RgwConfig sets Ceph RGW config values for the gateway clients that serve this object store.
+Values are modified at runtime without RGW restart.
+This is an advanced feature that must be used with caution. Misconfigurations can result in
+object store breakage.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>rgwCommandFlags</code><br/>
+<em>
+map[string]string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>RgwCommandFlags sets Ceph RGW config values for the gateway clients that serve this object
+store. Values are modified at RGW startup, resulting in RGW pod restarts.
+This is an advanced feature that must be used with caution. Misconfigurations can result in
+object store breakage.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3 id="ceph.rook.io/v1.HTTPEndpointSpec">HTTPEndpointSpec

@@ -1734,6 +1734,22 @@ type GatewaySpec struct {
 	// Example: for an additional mount at subPath `ldap`, mounted from a secret that has key
 	// `bindpass.secret`, the file would reside at `/var/rgw/ldap/bindpass.secret`.
 	AdditionalVolumeMounts AdditionalVolumeMounts `json:"additionalVolumeMounts,omitempty"`
+
+	// RgwConfig sets Ceph RGW config values for the gateway clients that serve this object store.
+	// Values are modified at runtime without RGW restart.
+	// This is an advanced feature that must be used with caution. Misconfigurations can result in
+	// object store breakage.
+	// +nullable
+	// +optional
+	RgwConfig map[string]string `json:"rgwConfig,omitempty"`
+
+	// RgwCommandFlags sets Ceph RGW config values for the gateway clients that serve this object
+	// store. Values are modified at RGW startup, resulting in RGW pod restarts.
+	// This is an advanced feature that must be used with caution. Misconfigurations can result in
+	// object store breakage.
+	// +nullable
+	// +optional
+	RgwCommandFlags map[string]string `json:"rgwCommandFlags,omitempty"`
 }
 
 // EndpointAddress is a tuple that describes a single IP address or host name. This is a subset of
