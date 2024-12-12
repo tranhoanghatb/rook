@@ -712,3 +712,22 @@ For external CephCephObjectStores (i.e., when `spec.gateway.externalRgwEndpoints
 vhost-style addressing should be configured on the host cluster, and `hosting.dnsNames` is
 irrelevant. The default `advertiseEndpoint` for external CephObjectStores is the first entry in the
 `spec.gateway.externalRgwEndpoints` list, which users should be able to override if desired.
+
+<!-- 
+
+```yaml
+spec:
+  metadataPool: # ...
+  dataPool: # ...
+  gateway:
+    rgwConfig:
+      conf-name: value
+      other_conf: value
+      debug_rgw: "20"
+    rgwCommandFlags:
+      flag-name: value
+      other_flag: value
+      rgw_enable_apis: "s3, s3website, swift, swift_auth, sts, iam, notifications"
+``` 
+
+-->

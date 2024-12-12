@@ -349,6 +349,54 @@ vault write -f transit/keys/<mybucketkey> exportable=true # transit engine
 
 * `tokenSecretName` can be (and often will be) the same for both kms and s3 configurations.
 
+## Advanced configuration
+
+!!! warning
+    This feature is intended for advanced users. It allows breaking configurations to be easily
+    applied. Rook cannot guarantee support non-recommended uses of this feature. Use with caution.
+
+CephObjectStore allows arbitrary Ceph configurations to be applied to RGW daemons that serve the
+object store. [RGW config reference](https://docs.ceph.com/en/latest/radosgw/config-ref/).
+
+Configurations are applied to all RGWs that serve the CephObjectStore. Values must be strings.
+Below is an example showing how different RGW configs and values might be applied. The example is
+intended only to show a selection of value data types.
+
+```yaml
+# THIS SAMPLE IS NOT A RECOMMENDATION
+# ...
+spec:
+  gateway:
+    # ...
+    rgwConfig:
+      debug_rgw: "20" # int
+      rgw_s3_auth_use_ldap: "true" # bool
+    rgwCommandFlags:
+      debug-rgw: "20" # config keys are allowed to be dashes or underscores
+      rgw_dmclock_auth_res: "100.0" # float
+      rgw_d4n_l1_datacache_persistent_path: /var/log/rook/rgwd4ncache # string
+      rgw_d4n_address: "127.0.0.1:6379" # IP string
+```
+
+* `rgwConfig` - These configurations are applied and modified at runtime, without RGW restart.
+* `rgwCommandFlags` - These configurations are applied as CLI arguments and result in RGW daemons
+    restarting when updates are applied. Restarts are desired behavior for some RGW configs.
+
+### Example - debugging
+
+Users are often asked to provide RGW logs at a high log level when troubleshooting complex issues.
+Apply log levels to RGWs easily using `rgwConfig`.
+
+```yaml
+# ...
+spec:
+  gateway:
+    # ...
+    rgwConfig:
+      debug_ms: "20"
+      debug_rgw: "20"
+```
+
 ## Deleting a CephObjectStore
 
 During deletion of a CephObjectStore resource, Rook protects against accidental or premature
