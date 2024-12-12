@@ -48,7 +48,11 @@ There are two sources for metrics collection:
 From the root of your locally cloned Rook repo, go the monitoring directory:
 
 ```console
+<<<<<<< HEAD
 $ git clone --single-branch --branch v1.16.0-beta.0 https://github.com/rook/rook.git
+=======
+$ git clone --single-branch --branch master https://github.com/rook/rook.git
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
 cd rook/deploy/examples/monitoring
 ```
 

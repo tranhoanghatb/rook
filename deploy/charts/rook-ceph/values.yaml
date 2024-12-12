@@ -7,7 +7,11 @@ image:
   repository: docker.io/rook/ceph
   # -- Image tag
   # @default -- `master`
+<<<<<<< HEAD
   tag: v1.16.0-beta.0
+=======
+  tag: master
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
   # -- Image pull policy
   pullPolicy: IfNotPresent
 

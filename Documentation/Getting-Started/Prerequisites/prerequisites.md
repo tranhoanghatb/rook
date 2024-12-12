@@ -7,7 +7,11 @@ and Rook is granted the required privileges (see below for more information).
 
 ## Kubernetes Version
 
+<<<<<<< HEAD
 Kubernetes versions **v1.27** through **v1.32** are supported.
+=======
+Kubernetes versions **v1.27** through **v1.31** are supported.
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
 
 ## CPU Architecture
 

@@ -27,7 +27,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         kubernetes-versions: ["v1.32.0"]
+=======
+        kubernetes-versions: ["v1.31.0"]
+>>>>>>> 8fd34e88bb (test: add obc bucketPolicy integration test)
     steps:
       - name: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
