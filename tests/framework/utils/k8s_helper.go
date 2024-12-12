@@ -635,7 +635,7 @@ func (k8sh *K8sHelper) IsCRDPresent(crdName string) bool {
 	for i := 0; i < RetryLoop; i++ {
 		_, err := k8sh.Kubectl(cmdArgs...)
 		if err == nil {
-			k8slogger.Infof("Found the CRD resource: " + crdName)
+			k8slogger.Infof("Found the CRD resource: %s", crdName)
 			return true
 		}
 		time.Sleep(RetryInterval * time.Second)

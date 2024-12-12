@@ -17,6 +17,7 @@ package client
 
 import (
 	"fmt"
+	"math"
 	"os/exec"
 	"reflect"
 	"strconv"
@@ -572,7 +573,10 @@ func testCreatePoolWithReplicasPerFailureDomain(t *testing.T, failureDomain, cru
 			assert.Equal(t, args[4], "size")
 			poolSize, err := strconv.Atoi(args[5])
 			assert.NoError(t, err)
-			assert.Equal(t, uint(poolSize), poolSpec.Replicated.Size)
+			if poolSize < math.MaxUint {
+				uPoolSize = uint(poolSize) // nolint:gosec // G115 : we know it is not too big
+				assert.Equal(t, uPoolSize, poolSpec.Replicated.Size)
+			}
 			poolRuleSet = true
 			return "", nil
 		}
