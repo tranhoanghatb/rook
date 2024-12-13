@@ -23,7 +23,7 @@ configOverride:
 # Installs a debugging toolbox deployment
 toolbox:
   # -- Enable Ceph debugging pod deployment. See [toolbox](../Troubleshooting/ceph-toolbox.md)
-  enabled: false
+  enabled: true
   # -- Toolbox image, defaults to the image used by the Ceph cluster
   image: #quay.io/ceph/ceph:v19.2.0
   # -- Toolbox tolerations
@@ -50,7 +50,7 @@ toolbox:
 monitoring:
   # -- Enable Prometheus integration, will also create necessary RBAC rules to allow Operator to create ServiceMonitors.
   # Monitoring requires Prometheus to be pre-installed
-  enabled: false
+  enabled: true
   # -- Whether to create the Prometheus rules for Ceph alerts
   createPrometheusRules: false
   # -- The namespace in which to create the prometheus rules, if different from the rook cluster namespace.
@@ -418,24 +418,25 @@ cephClusterSpec:
 ingress:
   # -- Enable an ingress for the ceph-dashboard
   dashboard:
-    {}
-    # annotations:
-    #   external-dns.alpha.kubernetes.io/hostname: dashboard.example.com
-    #   nginx.ingress.kubernetes.io/rewrite-target: /ceph-dashboard/$2
-    # If the dashboard has ssl: true the following will make sure the NGINX Ingress controller can expose the dashboard correctly
-    #   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    #   nginx.ingress.kubernetes.io/server-snippet: |
-    #     proxy_ssl_verify off;
-    # host:
-    #   name: dashboard.example.com
-    #   path: "/ceph-dashboard(/|$)(.*)"
-    # tls:
-    # - hosts:
-    #     - dashboard.example.com
-    #   secretName: testsecret-tls
-    ## Note: Only one of ingress class annotation or the `ingressClassName:` can be used at a time
-    ## to set the ingress class
-    # ingressClassName: nginx
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: dashboard.example.com
+      nginx.ingress.kubernetes.io/rewrite-target: /ceph-dashboard/$2
+    If the dashboard has ssl: true the following will make sure the NGINX Ingress controller can expose the dashboard correctly
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/server-snippet: |
+        proxy_ssl_verify off;
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_ssl_protocols TLSv1.3;
+    host:
+      name: rook-ceph-dr.k8s.local
+      path: "/"
+    tls:
+    - hosts:
+        - rook-ceph-dr.k8s.local
+      secretName: testsecret-tls
+    # Note: Only one of ingress class annotation or the `ingressClassName:` can be used at a time
+    # to set the ingress class
+    ingressClassName: nginx-ingress-controller
 
 # -- A list of CephBlockPool configurations to deploy
 # @default -- See [below](#ceph-block-pools)
@@ -529,7 +530,7 @@ cephFileSystems:
         priorityClassName: system-cluster-critical
     storageClass:
       enabled: true
-      isDefault: false
+      isDefault: true
       name: ceph-filesystem
       # (Optional) specify a data pool to use, must be the name of one of the data pools above, 'data0' by default
       pool: data0
